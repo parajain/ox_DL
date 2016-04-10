@@ -73,8 +73,8 @@ data = torch.Tensor{
 -- The model will have one layer (called a module), which takes the 
 -- 2 inputs (fertilizer and insecticide) and produces the 1 output 
 -- (corn).
-
 -- Note that the Linear model specified below has 3 parameters:
+
 --   1 for the weight assigned to fertilizer
 --   1 for the weight assigned to insecticide
 --   1 for the weight assigned to the bias term
@@ -180,7 +180,7 @@ sgd_params = {
 -- but should typically be determinined using cross-validation.
 
 -- we cycle 1e4 times over our training data
-for i = 1,1e4 do
+for i = 1,1e5 do
 
    -- this variable is used to estimate the average loss
    current_loss = 0
@@ -224,7 +224,7 @@ end
 --   corn = 31.98 + 0.65 * fertilizer + 1.11 * insecticides
 
 -- We compare our approximate results with the text's results.
-
+--[[
 text = {40.32, 42.92, 45.33, 48.85, 52.37, 57, 61.82, 69.78, 72.19, 79.42}
 
 print('id  approx   text')
@@ -232,5 +232,25 @@ for i = 1,(#data)[1] do
    local myPrediction = model:forward(data[i][{{2,3}}])
    print(string.format("%2d  %6.2f %6.2f", i, myPrediction[1], text[i]))
 end
+--]]
+-- new training data
+
+dataTest = torch.Tensor{
+	{6, 4},
+	{10, 5},
+	{14, 8}
+}
+
+
+print('id  approx')
+for i = 1,(#dataTest)[1] do
+   local myPrediction = model:forward(dataTest[i][{{1,2}}])
+   print(string.format("%2d  %6.2f", i, myPrediction[1]))
+end
+
+
+
+
+
 
 
