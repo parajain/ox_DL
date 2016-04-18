@@ -152,6 +152,7 @@ feval = function(x_new)
    dl_dx:zero()
 
    -- evaluate the loss function and its derivative wrt x, for that sample
+   -- Parag: dl_dx is calculated in this backward pass and we are just resetting it for that, no explict calculation is there outside. 
    local loss_x = criterion:forward(model:forward(inputs), target)
    model:backward(inputs, criterion:backward(model.output, target))
 
