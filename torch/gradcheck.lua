@@ -17,9 +17,11 @@ local function checkgrad(f, g, x, eps)
   local grad_est = torch.DoubleTensor(grad:size())
   for i = 1, grad:size(1) do
     -- TODO: do something with x[i] and evaluate f twice, and put your estimate of df/dx_i into grad_est[i]
+	x[i] = x[i] + eps
+    local g1 = f(x)
     x[i] = x[i] + eps
-    ...something(s) here
-    grad_est[i] = ...something here
+	local g2 = f(x)
+    grad_est[i] = (g1 - g2) / (2 * eps)
   end
 
   -- computes (symmetric) relative error of gradient
